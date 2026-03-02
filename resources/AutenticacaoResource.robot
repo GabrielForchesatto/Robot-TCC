@@ -1,22 +1,7 @@
 *** Settings ***
 Library    SeleniumLibrary  run_on_failure=Capture Page Screenshot
 Library    DebugLibrary
-
-*** Variables ***
-${EMAIL}          gabrielvalendorf@gmail.com
-${SENHA}          123456Ab
-
-# --- DADOS PARA NOVO CADASTRO ---
-${NOME_NOVO}      Gabriel Teste TCC
-${EMAIL_NOVO}     gabriel.tcc.novo@gmail.com
-${SENHA_NOVA}     123456
-${PRIMEIRO_NOME}  Gabriel
-${ULTIMO_NOME}    Valendorf
-${ENDERECO}       Rua Exemplo TCC, 123
-${ESTADO}         Rio Grande do Sul
-${CIDADE}         Passo Fundo
-${CEP}            99070-000
-${CELULAR}        54999999999
+Variables  ../data.yaml
 
 *** Keywords ***
 Realizar Login

@@ -1,7 +1,7 @@
 *** Settings ***
 Resource    ../utils/sharedKeywords.robot
 Resource    ../resources/HomeResource.robot
-Resource    ../resources/LoginResource.robot
+Resource    ../resources/AutenticacaoResource.robot
 Resource    ../resources/MeusDadosResource.robot
 
 Test Setup     Abrir browser
