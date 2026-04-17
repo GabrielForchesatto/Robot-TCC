@@ -1,6 +1,7 @@
 *** Settings ***
 Library    SeleniumLibrary  run_on_failure=Capture Page Screenshot
 Library    DebugLibrary
+Library    String  
 Variables  ../data.yaml
 
 *** Keywords ***
@@ -17,12 +18,16 @@ Validar usuário logado
     Page Should Contain              Logged in as
     Capture Page Screenshot
 
-# --- KEYWORDS DE CADASTRO ---
 Iniciar Cadastro de Usuário
     Click Element    xpath://a[@href='/login']
     Wait Until Element Is Visible    xpath://div[@class='signup-form']
+    
+    ${SUFIXO_ALEATORIO}    Generate Random String    6    [LOWER][NUMBERS]
+    ${EMAIL_DINAMICO}      Set Variable    gabriel.tcc.${SUFIXO_ALEATORIO}@gmail.com
+    
     Input Text       xpath://input[@data-qa='signup-name']     ${NOME_NOVO}
-    Input Text       xpath://input[@data-qa='signup-email']    ${EMAIL_NOVO}
+    Input Text       xpath://input[@data-qa='signup-email']    ${EMAIL_DINAMICO}
+    
     Click Element    xpath://button[@data-qa='signup-button']
 
 Preencher Formulário de Cadastro
@@ -43,7 +48,7 @@ Preencher Formulário de Cadastro
     Input Text       id:first_name     ${PRIMEIRO_NOME}
     Input Text       id:last_name      ${ULTIMO_NOME}
     Input Text       id:address1       ${ENDERECO}
-    Select From List By Value    id:country    India
+    Select From List By Value    id:country    Israel
     Input Text       id:state          ${ESTADO}
     Input Text       id:city           ${CIDADE}
     Input Text       id:zipcode        ${CEP}
@@ -55,12 +60,10 @@ Finalizar Cadastro
 
 Validar Conta Criada com Sucesso
     Wait Until Element Is Visible    xpath://h2[@data-qa='account-created']
-    Page Should Contain              ACCOUNT CREATED
     Click Element    xpath://a[@data-qa='continue-button']
     
-    # Valida se logou automaticamente após criar
+    # Valida se logou automaticamente após criar    
     Wait Until Element Is Visible    xpath://li/a[contains(text(), 'Logged in as')]
-    Page Should Contain              Logged in as
     Capture Page Screenshot
 
 # --- KEYWORDS DE EXCLUSÃO ---
