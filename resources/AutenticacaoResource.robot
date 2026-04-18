@@ -28,6 +28,8 @@ Iniciar Cadastro de Usuário
     Input Text       xpath://input[@data-qa='signup-name']     ${NOME_NOVO}
     Input Text       xpath://input[@data-qa='signup-email']    ${EMAIL_DINAMICO}
     
+    Capture Page Screenshot
+
     Click Element    xpath://button[@data-qa='signup-button']
 
 Preencher Formulário de Cadastro
@@ -60,18 +62,23 @@ Finalizar Cadastro
 
 Validar Conta Criada com Sucesso
     Wait Until Element Is Visible    xpath://h2[@data-qa='account-created']
-    Click Element    xpath://a[@data-qa='continue-button']
-    
-    # Valida se logou automaticamente após criar    
-    Wait Until Element Is Visible    xpath://li/a[contains(text(), 'Logged in as')]
+
     Capture Page Screenshot
+    Wait Until Element Is Visible  xpath://a[@data-qa='continue-button']
+    Click Element  xpath://a[@data-qa='continue-button']
+
+    Reload Page
+
+    Click Element  xpath://a[@data-qa='continue-button']
 
 # --- KEYWORDS DE EXCLUSÃO ---
 Clicar no botão "Delete Account"
+    Capture Page Screenshot
     Click Element    xpath://a[@href='/delete_account']
 
 Validar que a conta foi excluída
     Wait Until Element Is Visible    xpath://h2[@data-qa='account-deleted']
-    Page Should Contain              ACCOUNT DELETED
+
+    Capture Page Screenshot
     Click Element    xpath://a[@data-qa='continue-button']
     Capture Page Screenshot

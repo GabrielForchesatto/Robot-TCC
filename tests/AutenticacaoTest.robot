@@ -16,8 +16,6 @@ Cadastrar Usuário com Sucesso
     Preencher Formulário de Cadastro
     Finalizar Cadastro
     Validar Conta Criada com Sucesso
-    Clicar no botão "Delete Account"
-    Validar que a conta foi excluída
 
 Realizar Login com Sucesso
     [Tags]  id-002
@@ -28,7 +26,10 @@ Realizar Login com Sucesso
 Excluir conta com sucesso
     [Tags]  id-003    
     Acessar site da Automation Exercise
-    Realizar Login
+    Iniciar Cadastro de Usuário
+    Preencher Formulário de Cadastro
+    Finalizar Cadastro
+    Validar Conta Criada com Sucesso
     Clicar no botão "Delete Account"
     Validar que a conta foi excluída
 

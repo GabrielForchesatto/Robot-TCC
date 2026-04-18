@@ -2,8 +2,8 @@
 URL_BASE: "https://automationexercise.com/"
 
 # --- DADOS PARA LOGIN ---
-EMAIL: "gabrielvalendorf@gmail.com"
-SENHA: "123456Ab"
+EMAIL: "gabriel.tcc.novo@gmail.com"
+SENHA: "123456"
 
 # --- DADOS PARA NOVO CADASTRO ---
 NOME_NOVO: "Gabriel Teste TCC"

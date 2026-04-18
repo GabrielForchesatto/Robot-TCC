@@ -3,6 +3,7 @@ Library    SeleniumLibrary  run_on_failure=Capture Page Screenshot
 
 *** Keywords ***
 Clicar no botão "Contact Us"
+    Wait Until Element Is Visible    xpath://a[@href='/contact_us']
     Click Element    xpath://a[@href='/contact_us']
     Wait Until Element Is Visible    xpath://div[@class='contact-form']
 
