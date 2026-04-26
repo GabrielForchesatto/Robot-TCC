@@ -40,3 +40,17 @@ Preencher formulário de Contato (Simulando alteração de dados)
     Preencher formulário de contato
     Enviar formulário
     Validar mensagem de sucesso do envio
+
+Login com Senha Incorreta
+    [Tags]  id-005  negativo
+    Acessar site da Automation Exercise
+    Tentar Login com Credenciais    ${EMAIL}    ${SENHA_ERRADA}
+    Validar Mensagem de Erro no Login
+
+Realizar Logout
+    [Tags]  id-006
+    Acessar site da Automation Exercise
+    Realizar Login
+    Realizar Logout do Sistema
+    Validar que voltou para a tela de Login
+

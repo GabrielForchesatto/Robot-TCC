@@ -20,3 +20,23 @@ Validar mensagem de sucesso do envio
     Element Text Should Be           xpath://div[@class='status alert alert-success']    Success! Your details have been submitted successfully.
     Capture Page Screenshot
     Click Element                    xpath://a[@class='btn btn-success']
+
+
+Acessar Detalhes da Conta
+    Wait Until Element Is Visible    xpath://li/a[contains(text(), 'Logged in as')]
+
+Alterar Cidade e Celular
+    [Arguments]    ${cidade}    ${celular}
+    Debug
+    Input Text    id:city             ${cidade}
+    Input Text    id:mobile_number    ${celular}
+
+Salvar Alterações de Cadastro
+    Scroll Element Into View    xpath://button[@data-qa='create-account']
+    Click Element               xpath://button[@data-qa='create-account']
+
+Validar Dados Atualizados
+    [Arguments]    ${cidade_esperada}    ${celular_esperado}
+    Page Should Contain    ${cidade_esperada}
+    Page Should Contain    ${celular_esperado}
+    Capture Page Screenshot

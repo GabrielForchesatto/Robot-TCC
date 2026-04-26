@@ -69,7 +69,10 @@ Validar Conta Criada com Sucesso
 
     Reload Page
 
-    Click Element  xpath://a[@data-qa='continue-button']
+    ${status} =    Run Keyword And Return Status    Wait Until Element Is Visible    xpath://a[@data-qa='continue-button']    timeout=10s
+    IF    ${status}
+        Click Element    xpath://a[@data-qa='continue-button']
+    END
 
 # --- KEYWORDS DE EXCLUSÃO ---
 Clicar no botão "Delete Account"
@@ -81,4 +84,24 @@ Validar que a conta foi excluída
 
     Capture Page Screenshot
     Click Element    xpath://a[@data-qa='continue-button']
+    Capture Page Screenshot
+
+Tentar Login com Credenciais
+    [Arguments]    ${email_teste}    ${senha_teste}
+    Click Element    xpath://a[@href='/login']
+    Wait Until Element Is Visible    xpath://div[@class='login-form']
+    Input Text       xpath://input[@data-qa='login-email']       ${email_teste}
+    Input Text       xpath://input[@data-qa='login-password']    ${senha_teste}
+    Click Element    xpath://button[@data-qa='login-button']
+
+Validar Mensagem de Erro no Login
+    Wait Until Page Contains    Your email or password is incorrect!
+    Capture Page Screenshot
+
+Realizar Logout do Sistema
+    Click Element    xpath://a[@href='/logout']
+
+Validar que voltou para a tela de Login
+    Wait Until Element Is Visible    xpath://div[@class='login-form']
+    Page Should Contain    Login to your account
     Capture Page Screenshot

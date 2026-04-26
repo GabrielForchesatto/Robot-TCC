@@ -22,3 +22,11 @@ NOME_CONTATO: "Gabriel Valendorf"
 EMAIL_CONTATO: "gabrielvalendorf@gmail.com"
 ASSUNTO: "Dúvida TCC"
 MENSAGEM: "Este é um teste automatizado para o TCC."
+
+# --- DADOS PARA TESTES DE FALHA ---
+EMAIL_INVALIDO: "email_nao_existente@deteste.com"
+SENHA_ERRADA: "SenhaIncorreta123"
+
+# --- NOVOS DADOS PARA ATUALIZAÇÃO ---
+NOVA_CIDADE: "Porto Alegre"
+NOVO_CELULAR: "51988888888"
