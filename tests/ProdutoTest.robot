@@ -41,3 +41,28 @@ Fluxo de Checkout Completo (E2E)
     Realizar Login 
     Prosseguir para o Pagamento
     Finalizar Pedido e Validar Sucesso
+
+Remover Produto do Carrinho
+    [Tags]  id-012  carrinho
+    Acessar site da Automation Exercise
+    Adicionar o primeiro produto ao carrinho
+    Acessar a página do carrinho
+    Remover o produto do carrinho
+    Validar que o carrinho está vazio
+
+Adicionar Avaliação (Review) em um Produto
+    [Tags]  id-013  produtos
+    Acessar site da Automation Exercise
+    Clicar em "View Product" do primeiro item
+    Preencher formulário de avaliação    ${NOME_CONTATO}    ${EMAIL}    Ótimo produto, atende aos requisitos do TCC!
+    Enviar avaliação
+    Validar mensagem de sucesso da avaliação
+
+Filtrar Produtos por Categoria Feminina (Dress)
+    [Tags]  id-014  produtos  filtros
+    Acessar site da Automation Exercise
+    Clicar na categoria "Women"
+    Clicar na subcategoria "Dress"
+    Validar que a página de produtos da categoria foi carregada
+
+
