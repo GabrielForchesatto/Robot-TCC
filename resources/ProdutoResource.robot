@@ -167,3 +167,60 @@ Validar que a página de produtos da categoria foi carregada
     Wait Until Element Is Visible    xpath://h2[contains(text(), 'Women - Dress Products')]    timeout=10s
     Page Should Contain              Women - Dress Products
     Capture Page Screenshot
+
+
+Alterar quantidade do produto para
+    [Arguments]    ${quantidade}
+    Wait Until Element Is Visible    id:quantity    timeout=10s
+    Clear Element Text               id:quantity
+    Input Text                       id:quantity    ${quantidade}
+    Capture Page Screenshot
+
+Adicionar ao carrinho na tela de detalhes
+    Click Button                     css:button.cart
+    # No detalhe do produto, o modal de sucesso exibe o link 'View Cart'
+    Wait Until Element Is Visible    xpath://u[contains(text(), 'View Cart')]    timeout=10s
+    Click Element                    xpath://u[contains(text(), 'View Cart')]
+
+Validar produto no carrinho com quantidade
+    [Arguments]    ${nome_produto}    ${quantidade}
+    Wait Until Element Is Visible    xpath://a[text()='${nome_produto}']    timeout=10s
+    # O site armazena a quantidade dentro de um botão desabilitado na coluna cart_quantity
+    Page Should Contain Element      xpath://td[@class='cart_quantity']/button[text()='${quantidade}']
+    Capture Page Screenshot
+
+
+Acessar menu de Produtos
+    Click Element                    xpath://a[@href='/products']
+    Wait Until Element Is Visible    id:search_product    timeout=10s
+    Capture Page Screenshot
+
+Clicar na marca "Polo"
+    Wait Until Element Is Visible    xpath://a[@href='/brand_products/Polo']    timeout=10s
+    Scroll Element Into View         xpath://a[@href='/brand_products/Polo']
+    Click Element                    xpath://a[@href='/brand_products/Polo']
+
+Validar que os produtos da marca "Polo" são exibidos
+    Wait Until Element Is Visible    xpath://h2[contains(text(), 'Brand - Polo Products')]    timeout=10s
+    Page Should Contain              Brand - Polo Products
+    Capture Page Screenshot
+
+# --- KEYWORDS DE BUSCA NEGATIVA ---
+Validar que nenhum produto é retornado na busca
+    Wait Until Element Is Visible    xpath://h2[contains(text(), 'Searched Products')]    timeout=10s
+    # Garante que nenhum elemento com a classe de card de produto foi carregado na tela
+    Page Should Not Contain Element  xpath://div[@class='productinfo text-center']
+    Capture Page Screenshot
+
+# --- KEYWORDS DE FATURA (INVOICE) ---
+Baixar fatura do pedido
+    Wait Until Element Is Visible    xpath://a[contains(text(), 'Download Invoice')]    timeout=10s
+    Click Element                    xpath://a[contains(text(), 'Download Invoice')]
+    # Um pequeno Sleep é útil aqui para dar tempo ao navegador de iniciar o download localmente
+    Sleep    2s
+    Capture Page Screenshot
+
+Avançar após download da fatura
+    Wait Until Element Is Visible    xpath://a[@data-qa='continue-button']    timeout=10s
+    Capture Page Screenshot
+    Click Element                    xpath://a[@data-qa='continue-button']

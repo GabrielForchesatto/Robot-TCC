@@ -65,4 +65,34 @@ Filtrar Produtos por Categoria Feminina (Dress)
     Clicar na subcategoria "Dress"
     Validar que a página de produtos da categoria foi carregada
 
+Adicionar produto ao carrinho com quantidade customizada
+    [Tags]  id-015  carrinho
+    Acessar site da Automation Exercise
+    Clicar em "View Product" do primeiro item
+    Alterar quantidade do produto para    4
+    Adicionar ao carrinho na tela de detalhes
+    Validar produto no carrinho com quantidade    ${NOME_PRODUTO_CARRINHO}    4
 
+Filtrar produtos por marca específica
+    [Tags]  id-016  produtos  filtros
+    Acessar site da Automation Exercise
+    Acessar menu de Produtos
+    Clicar na marca "Polo"
+    Validar que os produtos da marca "Polo" são exibidos
+
+Busca por produto inexistente
+    [Tags]  id-017  produtos  busca
+    Acessar site da Automation Exercise
+    Pesquisar pelo produto    ProdutoFicticio123
+    Validar que nenhum produto é retornado na busca
+
+Download de fatura (Invoice) após finalizar compra
+    [Tags]  id-018  e2e  fatura
+    Acessar site da Automation Exercise
+    Adicionar o primeiro produto ao carrinho
+    Ir para a tela de Checkout
+    Realizar Login
+    Prosseguir para o Pagamento
+    Finalizar Pedido e Validar Sucesso
+    Baixar fatura do pedido
+    Avançar após download da fatura
