@@ -8,7 +8,6 @@ Test Setup     Abrir browser
 Test Teardown  Fechar browser
 
 *** Test Cases ***
-
 Cadastrar Usuário com Sucesso
     [Tags]  id-001
     Acessar site da Automation Exercise
@@ -54,3 +53,10 @@ Realizar Logout
     Realizar Logout do Sistema
     Validar que voltou para a tela de Login
 
+Tentativa de cadastro com e-mail já existente
+    [Tags]  id-007  negativo  cadastro
+    Acessar site da Automation Exercise    
+    Iniciar Cadastro de Usuário
+    Preencher nome e e-mail já cadastrado    ${NOME_CONTATO}    ${EMAIL}
+    Clicar em Signup
+    Validar mensagem de erro de e-mail duplicado

@@ -105,3 +105,17 @@ Validar que voltou para a tela de Login
     Wait Until Element Is Visible    xpath://div[@class='login-form']
     Page Should Contain    Login to your account
     Capture Page Screenshot
+
+Preencher nome e e-mail já cadastrado
+    [Arguments]    ${nome}    ${email}
+    Wait Until Element Is Visible    xpath://input[@data-qa='signup-name']    timeout=10s
+    Input Text    xpath://input[@data-qa='signup-name']     ${nome}
+    Input Text    xpath://input[@data-qa='signup-email']    ${email}
+
+Clicar em Signup
+    Click Button    xpath://button[@data-qa='signup-button']
+
+Validar mensagem de erro de e-mail duplicado
+    Wait Until Element Is Visible    xpath://p[text()='Email Address already exist!']    timeout=10s
+    Page Should Contain              Email Address already exist!
+    Capture Page Screenshot

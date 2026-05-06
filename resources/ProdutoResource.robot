@@ -224,3 +224,53 @@ Avançar após download da fatura
     Wait Until Element Is Visible    xpath://a[@data-qa='continue-button']    timeout=10s
     Capture Page Screenshot
     Click Element                    xpath://a[@data-qa='continue-button']
+
+    # --- KEYWORDS DE VALIDAÇÃO DE ENDEREÇO (CHECKOUT) ---
+Validar que o endereço de entrega é igual ao de faturamento
+    Wait Until Element Is Visible    id:address_delivery    timeout=10s
+    Wait Until Element Is Visible    id:address_invoice     timeout=10s
+    
+    # Captura o nome e sobrenome das duas colunas
+    ${nome_entrega}=        Get Text    xpath://ul[@id='address_delivery']/li[@class='address_firstname address_lastname']
+    ${nome_faturamento}=    Get Text    xpath://ul[@id='address_invoice']/li[@class='address_firstname address_lastname']
+    
+    # Captura a linha principal do endereço (A estrutura do site coloca o endereço na 4ª linha da lista)
+    ${end_entrega}=         Get Text    xpath://ul[@id='address_delivery']/li[4]
+    ${end_faturamento}=     Get Text    xpath://ul[@id='address_invoice']/li[4]
+    
+    # Realiza a comparação exata dos dados
+    Should Be Equal    ${nome_entrega}    ${nome_faturamento}
+    Should Be Equal    ${end_entrega}     ${end_faturamento}
+    
+    Capture Page Screenshot
+
+Ir para a tela de Checkout logado
+    # Acessa o carrinho
+    Wait Until Element Is Visible    xpath://li/a[@href='/view_cart']    timeout=10s
+    Click Element                    xpath://li/a[@href='/view_cart']
+    
+    # Clica no botão para prosseguir
+    Wait Until Element Is Visible    xpath://a[contains(text(), 'Proceed To Checkout')]    timeout=10s
+    Click Element                    xpath://a[contains(text(), 'Proceed To Checkout')]
+
+    Wait Until Element Is Visible    id:address_delivery    timeout=10s
+
+Acessar página de contato
+    Wait Until Element Is Visible    xpath://a[@href='/contact_us']    timeout=10s
+    Click Element                    xpath://a[@href='/contact_us']
+    Wait Until Page Contains         Get In Touch    timeout=10s
+
+Clicar no botão de enviar contato
+    # Rola para garantir que o botão Submit está na tela
+    Scroll Element Into View    xpath://input[@data-qa='submit-button']
+    Click Element               xpath://input[@data-qa='submit-button']
+
+Validar que o formulário não foi enviado
+    # Como o navegador impede o envio via HTML5, a página não muda.
+    # Validamos que o título "Get In Touch" ainda está visível e capturamos o print.
+    Page Should Contain    Get In Touch
+    Capture Page Screenshot
+
+Rolar até o rodapé
+    Execute Javascript    window.scrollTo(0, document.body.scrollHeight)
+    Capture Page Screenshot

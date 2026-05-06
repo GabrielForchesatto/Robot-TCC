@@ -4,6 +4,7 @@ Library    DateTime
 Variables  ../data.yaml
 
 *** Keywords ***
+*** Keywords ***
 Abrir browser
     ${DATA_HORA}    Get Current Date    result_format=%Y%m%d_%H%M%S
     Set Screenshot Directory    ${OUTPUT DIR}/screenshots/${TEST_NAME}_${DATA_HORA}
@@ -15,11 +16,20 @@ Abrir browser
     ${options}=    Evaluate    selenium.webdriver.ChromeOptions()    modules=selenium.webdriver
     ${options.binary_location}=    Set Variable    C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe
     
+    # Argumentos básicos
     Call Method    ${options}    add_argument    --incognito
     Call Method    ${options}    add_argument    --disable-extensions
-    # Barra invertida adicionada antes do sinal de igual:
-    Call Method    ${options}    add_argument    --disable-blink-features\=AutomationControlled
+    Call Method    ${options}    add_argument    --no-first-run
+    Call Method    ${options}    add_argument    --no-default-browser-check
     
+    # Uso de variáveis para evitar falha no parse do sinal de igual (=) pelo Robot
+    ${arg_automation}=    Set Variable    --disable-blink-features=AutomationControlled
+    Call Method    ${options}    add_argument    ${arg_automation}
+    
+    ${arg_brave_features}=    Set Variable    --disable-features=BraveP3A,BraveShields,BraveRewards
+    Call Method    ${options}    add_argument    ${arg_brave_features}
+    
+    # Remoção da flag de controle automatizado
     ${exclude}=    Create List    enable-automation
     Call Method    ${options}    add_experimental_option    excludeSwitches    ${exclude}
     Call Method    ${options}    add_experimental_option    useAutomationExtension    ${False}
