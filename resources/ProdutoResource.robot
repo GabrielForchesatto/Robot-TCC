@@ -274,3 +274,105 @@ Validar que o formulário não foi enviado
 Rolar até o rodapé
     Execute Javascript    window.scrollTo(0, document.body.scrollHeight)
     Capture Page Screenshot
+
+Adicionar produto ao carrinho por ID
+    [Arguments]    ${id_produto}
+    # Rola a tela até o produto específico e força o clique para desviar do overlay
+    Scroll Element Into View    xpath:(//a[@data-product-id='${id_produto}'])[1]
+    Execute Javascript          document.querySelector("a[data-product-id='${id_produto}']").click()
+    Capture Page Screenshot
+
+Continuar comprando no modal
+    Wait Until Element Is Visible    xpath://button[text()='Continue Shopping']    timeout=10s
+    Click Element                    xpath://button[text()='Continue Shopping']
+
+Validar que o carrinho contém múltiplos produtos
+    # Confirma que os elementos <tr> referentes aos IDs 1 e 2 estão na tabela do carrinho
+    Wait Until Element Is Visible    xpath://tr[@id='product-1']    timeout=10s
+    Page Should Contain Element      xpath://tr[@id='product-2']
+    Capture Page Screenshot
+
+# --- KEYWORDS DE INTERCEPTAÇÃO DE CHECKOUT ---
+Tentar prosseguir para o Checkout como Visitante
+    Wait Until Element Is Visible    xpath://a[contains(text(), 'Proceed To Checkout')]    timeout=10s
+    Click Element                    xpath://a[contains(text(), 'Proceed To Checkout')]
+
+Validar modal de aviso para login no checkout
+    Wait Until Element Is Visible    xpath://div[@class='modal-content']    timeout=10s
+    Page Should Contain              Register / Login account to proceed on checkout.
+    Wait Until Element Is Visible    xpath://u[contains(text(), 'Register / Login')]
+    Capture Page Screenshot
+
+# --- KEYWORDS DE FILTRO DE CATEGORIA MASCULINA ---
+Clicar na categoria "Men"
+    # Clica no menu sanfona principal para expandir as opções masculinas
+    Wait Until Element Is Visible    xpath://a[@href='#Men']    timeout=10s
+    Scroll Element Into View         xpath://a[@href='#Men']
+    Click Element                    xpath://a[@href='#Men']
+    Capture Page Screenshot
+
+Clicar na subcategoria "Tshirts"
+    # Procura pelo link que contém 'Tshirts' dentro das categorias
+    Wait Until Element Is Visible    xpath://a[contains(@href, '/category_products/') and contains(text(), 'Tshirts')]    timeout=10s
+    Click Element                    xpath://a[contains(@href, '/category_products/') and contains(text(), 'Tshirts')]
+
+Validar que a página de produtos da categoria masculina foi carregada
+    Wait Until Element Is Visible    xpath://h2[contains(text(), 'Men - Tshirts Products')]    timeout=10s
+    Page Should Contain              Men - Tshirts Products
+    Capture Page Screenshot
+
+# --- KEYWORDS DE FILTRO DE MARCA (MADAME) ---
+Clicar na marca "Madame"
+    Wait Until Element Is Visible    xpath://a[@href='/brand_products/Madame']    timeout=10s
+    Scroll Element Into View         xpath://a[@href='/brand_products/Madame']
+    Click Element                    xpath://a[@href='/brand_products/Madame']
+    Capture Page Screenshot
+
+Validar que os produtos da marca "Madame" são exibidos
+    Wait Until Element Is Visible    xpath://h2[contains(text(), 'Brand - Madame Products')]    timeout=10s
+    Page Should Contain              Brand - Madame Products
+    Capture Page Screenshot
+
+# --- KEYWORDS DE FILTRO DE CATEGORIA INFANTIL ---
+Clicar na categoria "Kids"
+    # Clica no menu sanfona principal para expandir as opções infantis
+    Wait Until Element Is Visible    xpath://a[@href='#Kids']    timeout=10s
+    Scroll Element Into View         xpath://a[@href='#Kids']
+    Click Element                    xpath://a[@href='#Kids']
+    Capture Page Screenshot
+
+Clicar na subcategoria infantil "Dress"
+    # Procura pelo link "Dress" especificamente dentro do menu da categoria Kids
+    Wait Until Element Is Visible    xpath://div[@id='Kids']//a[contains(text(), 'Dress')]    timeout=10s
+    Click Element                    xpath://div[@id='Kids']//a[contains(text(), 'Dress')]
+
+Validar que a página de produtos da categoria infantil foi carregada
+    Wait Until Element Is Visible    xpath://h2[contains(text(), 'Kids - Dress Products')]    timeout=10s
+    Page Should Contain              Kids - Dress Products
+    Capture Page Screenshot
+
+# --- KEYWORDS DE AVALIAÇÃO EM BRANCO (NEGATIVO) ---
+Deixar campos de avaliação em branco e tentar enviar
+    Wait Until Element Is Visible    id:button-review    timeout=10s
+    Scroll Element Into View         id:button-review
+    Click Element                    id:button-review
+
+Validar que o formulário de avaliação não foi enviado
+    # Como o navegador trava o envio (HTML5 'required'), a mensagem de sucesso permanece oculta no HTML.
+    # Usamos 'Element Should Not Be Visible' em vez de 'Page Should Not Contain' para validar o que o utilizador realmente vê.
+    Element Should Not Be Visible    xpath://span[text()='Thank you for your review.']
+    Capture Page Screenshot
+
+# --- KEYWORDS DE REMOÇÃO DE ITEM ESPECÍFICO DO CARRINHO ---
+Remover o segundo produto do carrinho
+    # Procura o botão de exclusão especificamente para o produto com ID = 2
+    Wait Until Element Is Visible    xpath://a[@data-product-id='2' and @class='cart_quantity_delete']    timeout=10s
+    Click Element                    xpath://a[@data-product-id='2' and @class='cart_quantity_delete']
+    Sleep    1s    # Pausa rápida para o site processar a remoção do DOM
+
+Validar que o segundo produto foi removido e os demais permanecem
+    # Garante que os produtos 1 e 3 continuam na tela, mas o 2 desapareceu
+    Wait Until Element Is Visible    xpath://tr[@id='product-1']    timeout=10s
+    Wait Until Element Is Visible    xpath://tr[@id='product-3']    timeout=10s
+    Page Should Not Contain Element  xpath://tr[@id='product-2']
+    Capture Page Screenshot
