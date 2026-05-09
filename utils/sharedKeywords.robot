@@ -21,6 +21,7 @@ Abrir browser
     Call Method    ${options}    add_argument    --disable-extensions
     Call Method    ${options}    add_argument    --no-first-run
     Call Method    ${options}    add_argument    --no-default-browser-check
+    Call Method    ${options}    add_argument    --headless
     
     # Uso de variáveis para evitar falha no parse do sinal de igual (=) pelo Robot
     ${arg_automation}=    Set Variable    --disable-blink-features=AutomationControlled
@@ -43,5 +44,8 @@ Fechar Browser
 Acessar site da Automation Exercise
     Go To    ${URL_BASE}
     Maximize Browser Window
-    Wait Until Page Contains Element    xpath://img[@alt='Website for automation practice']
+    
+    # Aguarda o botão 'Home' do menu superior em vez da imagem do logo
+    Wait Until Element Is Visible    xpath://a[contains(text(), 'Home')]    timeout=30s
+    
     Capture Page Screenshot

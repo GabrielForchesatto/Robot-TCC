@@ -56,7 +56,7 @@ Realizar Logout
 Tentativa de cadastro com e-mail já existente
     [Tags]  id-007  negativo  cadastro
     Acessar site da Automation Exercise    
-    Iniciar Cadastro de Usuário
+    Acessar página de Login ou Signup          # <-- Nova linha
     Preencher nome e e-mail já cadastrado    ${NOME_CONTATO}    ${EMAIL}
     Clicar em Signup
     Validar mensagem de erro de e-mail duplicado

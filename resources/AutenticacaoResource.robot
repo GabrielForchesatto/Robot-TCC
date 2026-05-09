@@ -100,6 +100,7 @@ Validar Mensagem de Erro no Login
 
 Realizar Logout do Sistema
     Click Element    xpath://a[@href='/logout']
+    Capture Page Screenshot
 
 Validar que voltou para a tela de Login
     Wait Until Element Is Visible    xpath://div[@class='login-form']
@@ -119,3 +120,8 @@ Validar mensagem de erro de e-mail duplicado
     Wait Until Element Is Visible    xpath://p[text()='Email Address already exist!']    timeout=10s
     Page Should Contain              Email Address already exist!
     Capture Page Screenshot
+
+Acessar página de Login ou Signup
+    Wait Until Element Is Visible    xpath://a[@href='/login']    timeout=10s
+    Click Element                    xpath://a[@href='/login']
+    Wait Until Element Is Visible    xpath://div[@class='signup-form']    timeout=10s
